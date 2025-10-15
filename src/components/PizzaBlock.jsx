@@ -1,16 +1,12 @@
 import { useState } from 'react';
 
-const PizzaBlock = () => {
+const PizzaBlock = ({ id, imageUrl, price, title }) => {
   const [count, setCount] = useState(0);
 
   return (
     <div className="pizza-block">
-      <img
-        className="pizza-block__image"
-        src="https://media.dominos.by/__sized__/menu/product_image/2025/07/31/%D1%87%D0%B8%D0%BA%D0%B5%D0%BD_%D0%BA%D0%B0%D1%80%D1%80%D0%B8_%D0%9C_tE2qfZY-thumbnail-480x480.png"
-        alt="Pizza"
-      />
-      <h4 className="pizza-block__title">Чизбургер-пицца</h4>
+      <img className="pizza-block__image" src={imageUrl} alt="Pizza" />
+      <h4 className="pizza-block__title">{title}</h4>
       <div className="pizza-block__selector">
         <ul>
           <li className="active">тонкое</li>
@@ -23,7 +19,7 @@ const PizzaBlock = () => {
         </ul>
       </div>
       <div className="pizza-block__bottom">
-        <div className="pizza-block__price">от 395 ₽</div>
+        <div className="pizza-block__price">от {price} ₽</div>
         <button className="button button--outline button--add" onClick={() => setCount(count + 1)}>
           <svg
             width="12"

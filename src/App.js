@@ -1,7 +1,8 @@
 import Header from './components/Header';
 import Categories from './components/Categories';
 import Sort from './components/Sort';
-import PizzaBlock from './components/PizzaBlock';
+import PizzasList from './pages/PizzasList';
+import { getDataApi } from './utils/getDataApi';
 
 import './scss/app.scss';
 
@@ -17,9 +18,7 @@ function App() {
               <Sort />
             </div>
             <h2 className="content__title">Все пиццы</h2>
-            <div className="content__items">
-              <PizzaBlock />
-            </div>
+            <PizzasList />
           </div>
         </div>
       </div>
@@ -28,3 +27,6 @@ function App() {
 }
 
 export default App;
+(async () => {
+  console.log(await getDataApi('https://68ef6835b06cc802829d446e.mockapi.io/api/pizza'));
+})();

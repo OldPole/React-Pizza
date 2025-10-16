@@ -1,14 +1,15 @@
 import { useEffect, useState } from 'react';
 
-import PizzaBlock from '../components/PizzaBlock';
+import PizzaBlock from './PizzaBlock';
 import { getDataApi } from '../utils/getDataApi';
+import Skeleton from './PizzaBlock/Skeleton';
 
 const PizzasList = () => {
   const [pizzas, setPizzas] = useState([]);
 
   const getResources = async (url) => {
     const res = await getDataApi(url);
-
+    console.log(res);
     if (res) {
       setPizzas(res);
     } else {
@@ -22,10 +23,9 @@ const PizzasList = () => {
 
   return (
     <div className="content__items">
-      {pizzas &&
-        pizzas.map(({ id, imageUrl, price, title }) => (
-          <PizzaBlock id={id} imageUrl={imageUrl} price={price} title={title} />
-        ))}
+      {pizzas.length
+        ? pizzas.map((props) => <PizzaBlock key={props.id} {...props} />)
+        : [...new Array(6)].map(() => <Skeleton />)}
     </div>
   );
 };

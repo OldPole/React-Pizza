@@ -20,6 +20,10 @@
       border-bottom: 1px dashed $orange;
       cursor: pointer;
     }
+
+    @media screen and (max-width: 820px) {
+      justify-content: center;
+    }
   }
 
   &__popup {

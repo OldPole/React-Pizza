@@ -1,16 +1,53 @@
+import { useState, useEffect } from 'react';
+
+import PizzaBlock from '../components/PizzaBlock';
+import Skeleton from '../components/PizzaBlock/Skeleton';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
-import PizzasList from '../components/PizzasList';
+import { getDataApi } from '../utils/getDataApi';
 
 const HomePage = () => {
+  const [activeCategory, setActiveCategory] = useState(0);
+  const [sortType, setSortType] = useState({
+    title: 'популярности (убыв.)',
+    type: '-rating',
+  });
+  const [pizzas, setPizzas] = useState([]);
+
+  const getResources = async (url) => {
+    const res = await getDataApi(url);
+
+    if (res) {
+      setPizzas(res);
+    } else {
+      // Error
+    }
+  };
+
+  useEffect(() => {
+    const category = activeCategory > 0 ? `category=${activeCategory}` : '';
+    const sort = sortType.type.replace('-', '');
+    const order = sortType.type.includes('-') ? 'desc' : 'asc';
+    console.log(order);
+    getResources(
+      `https://68ef6835b06cc802829d446e.mockapi.io/api/pizza?${category}&sortBy=${sort}&order=${order}`,
+    );
+  }, [activeCategory, sortType]);
   return (
     <>
       <div className="content__top">
-        <Categories />
-        <Sort />
+        <Categories
+          activeCategory={activeCategory}
+          onChangeCategory={(index) => setActiveCategory(index)}
+        />
+        <Sort sortType={sortType} setSortType={setSortType} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <PizzasList />
+      <div className="content__items">
+        {pizzas.length
+          ? pizzas.map((props) => <PizzaBlock key={props.id} {...props} />)
+          : [...new Array(6)].map((_, index) => <Skeleton key={index} />)}
+      </div>
     </>
   );
 };

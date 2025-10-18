@@ -1,12 +1,18 @@
 import { useState } from 'react';
 
-const Sort = () => {
+const Sort = ({ sortType, setSortType }) => {
   const [open, setOpen] = useState(false);
-  const [sortType, setSortType] = useState(0);
-  const sortTypes = ['популярности', 'цене', 'алфавиту'];
+  const types = [
+    { title: 'популярности (убыв.)', type: '-rating' },
+    { title: 'популярности (возр.)', type: 'rating' },
+    { title: 'цене (убыв.)', type: '-price' },
+    { title: 'цене (возр.)', type: 'price' },
+    { title: 'алфавиту (убыв.)', type: '-title' },
+    { title: 'алфавиту (возр.)', type: 'title' },
+  ];
 
-  const handleSortType = (index) => {
-    setSortType(index);
+  const handleSortType = (type) => {
+    setSortType(type);
     setOpen(false);
   };
 
@@ -25,17 +31,17 @@ const Sort = () => {
           />
         </svg>
         <b>Сортировка по:</b>
-        <span onClick={() => setOpen(!open)}>{sortTypes[sortType]}</span>
+        <span onClick={() => setOpen(!open)}>{sortType.title}</span>
       </div>
       {open && (
         <div className="sort__popup">
           <ul>
-            {sortTypes.map((type, index) => (
+            {types.map((type, index) => (
               <li
-                onClick={() => handleSortType(index)}
-                className={index === sortType ? 'active' : ''}
-                key={type}>
-                {type}
+                onClick={() => handleSortType(type)}
+                className={sortType.title === type.title ? 'active' : ''}
+                key={type.title}>
+                {type.title}
               </li>
             ))}
           </ul>

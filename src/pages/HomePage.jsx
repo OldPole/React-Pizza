@@ -6,7 +6,7 @@ import Categories from '../components/Categories';
 import Sort from '../components/Sort';
 import { getDataApi } from '../utils/getDataApi';
 
-const HomePage = () => {
+const HomePage = ({ searchValue }) => {
   const [activeCategory, setActiveCategory] = useState(0);
   const [sortType, setSortType] = useState({
     title: 'популярности (убыв.)',
@@ -28,11 +28,17 @@ const HomePage = () => {
     const category = activeCategory > 0 ? `category=${activeCategory}` : '';
     const sort = sortType.type.replace('-', '');
     const order = sortType.type.includes('-') ? 'desc' : 'asc';
-    console.log(order);
+
     getResources(
       `https://68ef6835b06cc802829d446e.mockapi.io/api/pizza?${category}&sortBy=${sort}&order=${order}`,
     );
   }, [activeCategory, sortType]);
+
+  const pizzaList = pizzas
+    .filter((pizza) => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
+    .map((props) => <PizzaBlock key={props.id} {...props} />);
+  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
+
   return (
     <>
       <div className="content__top">
@@ -43,11 +49,7 @@ const HomePage = () => {
         <Sort sortType={sortType} setSortType={setSortType} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">
-        {pizzas.length
-          ? pizzas.map((props) => <PizzaBlock key={props.id} {...props} />)
-          : [...new Array(6)].map((_, index) => <Skeleton key={index} />)}
-      </div>
+      <div className="content__items">{pizzas.length ? pizzaList : skeletons}</div>
     </>
   );
 };

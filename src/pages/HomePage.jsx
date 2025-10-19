@@ -32,12 +32,14 @@ const HomePage = ({ searchValue }) => {
     getResources(
       `https://68ef6835b06cc802829d446e.mockapi.io/api/pizza?${category}&sortBy=${sort}&order=${order}`,
     );
+
+    window.scrollTo(0, 0);
   }, [activeCategory, sortType]);
 
   const pizzaList = pizzas
     .filter((pizza) => pizza.title.toLowerCase().includes(searchValue.toLowerCase()))
     .map((props) => <PizzaBlock key={props.id} {...props} />);
-  const skeletons = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
+  const skeletonList = [...new Array(6)].map((_, index) => <Skeleton key={index} />);
 
   return (
     <>
@@ -49,7 +51,7 @@ const HomePage = ({ searchValue }) => {
         <Sort sortType={sortType} setSortType={setSortType} />
       </div>
       <h2 className="content__title">Все пиццы</h2>
-      <div className="content__items">{pizzas.length ? pizzaList : skeletons}</div>
+      <div className="content__items">{pizzas.length ? pizzaList : skeletonList}</div>
     </>
   );
 };

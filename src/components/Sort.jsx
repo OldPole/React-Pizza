@@ -1,6 +1,8 @@
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
 
 const Sort = ({ sortType, setSortType }) => {
+  const dispatch = useDispatch();
   const [open, setOpen] = useState(false);
   const types = [
     { title: 'популярности (убыв.)', type: '-rating' },
@@ -12,7 +14,7 @@ const Sort = ({ sortType, setSortType }) => {
   ];
 
   const handleSortType = (type) => {
-    setSortType(type);
+    dispatch(setSortType(type));
     setOpen(false);
   };
 
@@ -36,7 +38,7 @@ const Sort = ({ sortType, setSortType }) => {
       {open && (
         <div className="sort__popup">
           <ul>
-            {types.map((type, index) => (
+            {types.map((type) => (
               <li
                 onClick={() => handleSortType(type)}
                 className={sortType.title === type.title ? 'active' : ''}

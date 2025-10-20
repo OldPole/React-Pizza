@@ -1,17 +1,17 @@
 import { useState, useEffect } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
 
 import PizzaBlock from '../components/PizzaBlock';
 import Skeleton from '../components/PizzaBlock/Skeleton';
 import Categories from '../components/Categories';
 import Sort from '../components/Sort';
+import { setActiveCategory, setSortType } from '../redux/slices/filterSlice';
 import { getDataApi } from '../utils/getDataApi';
 
 const HomePage = ({ searchValue }) => {
-  const [activeCategory, setActiveCategory] = useState(0);
-  const [sortType, setSortType] = useState({
-    title: 'популярности (убыв.)',
-    type: '-rating',
-  });
+  const activeCategory = useSelector((state) => state.filter.categoryIndex);
+  const sortType = useSelector((state) => state.filter.sortType);
+  const dispatch = useDispatch();
   const [pizzas, setPizzas] = useState([]);
 
   const getResources = async (url) => {
@@ -46,7 +46,7 @@ const HomePage = ({ searchValue }) => {
       <div className="content__top">
         <Categories
           activeCategory={activeCategory}
-          onChangeCategory={(index) => setActiveCategory(index)}
+          onChangeCategory={(index) => dispatch(setActiveCategory(index))}
         />
         <Sort sortType={sortType} setSortType={setSortType} />
       </div>

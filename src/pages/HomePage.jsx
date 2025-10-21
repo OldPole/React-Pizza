@@ -1,12 +1,12 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import PizzaBlock from '../components/PizzaBlock';
-import Skeleton from '../components/PizzaBlock/Skeleton';
-import Categories from '../components/Categories';
-import Sort from '../components/Sort';
-import { setActiveCategory, setSortType } from '../redux/slices/filterSlice';
-import { getDataApi } from '../utils/getDataApi';
+import PizzaBlock from '@components/PizzaBlock';
+import Skeleton from '@components/PizzaBlock/Skeleton';
+import Categories from '@components/Categories';
+import Sort from '@components/Sort';
+import { setActiveCategory, setSortType } from '@redux/slices/filterSlice';
+import { getDataApi } from '@utils/getDataApi';
 
 const HomePage = ({ searchValue }) => {
   const activeCategory = useSelector((state) => state.filter.categoryIndex);

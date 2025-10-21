@@ -1,8 +1,8 @@
 import { useContext } from 'react';
-import { SearchContext } from '../../App';
+import { SearchContext } from '@src/App';
 
-import searchIcon from '../../assets/img/search.png';
-import clearIcon from '../../assets/img/clear.png';
+import searchIcon from '@assets/img/search.png';
+import clearIcon from '@assets/img/clear.png';
 
 import styles from './search.module.scss';
 

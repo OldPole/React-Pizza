@@ -56,6 +56,24 @@
   &--outline {
     background-color: #fff;
     border-color: $orange;
+    &.go-back-btn {
+      img {
+        filter: none;
+        opacity: 0.3;
+        width: 25px;
+        height: 26px;
+        margin-right: 12px;
+        transition: all $duration ease-in-out;
+      }
+
+      &:hover {
+        img {
+          filter: brightness(0) invert(1);
+          opacity: 1;
+        }
+      }
+    }
+
     &,
     span {
       color: $orange;
@@ -96,8 +114,12 @@
   }
 
   &--add {
-    svg {
+    img {
+      width: 10px;
+      height: 10px;
       margin-right: 2px;
+      filter: brightness(0) saturate(100%) invert(44%) sepia(98%) saturate(625%) hue-rotate(343deg)
+        brightness(97%) contrast(96%);
     }
 
     span {
@@ -109,6 +131,10 @@
       i {
         background-color: #fff;
         color: $orange;
+      }
+
+      img {
+        filter: brightness(0) invert(1);
       }
     }
 
@@ -135,9 +161,12 @@
     line-height: 23px;
     padding: 12px 25px;
 
-    svg {
+    img {
+      width: 20px;
+      height: 20px;
       margin-right: 8px;
       margin-bottom: 1px;
+      filter: brightness(0) invert(1);
     }
 
     span {

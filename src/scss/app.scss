@@ -31,6 +31,12 @@ body {
     margin-bottom: 50px;
     font-size: 38px;
     font-weight: bold;
+
+    img {
+      width: 20px;
+      height: 20px;
+      margin-right: 10px;
+    }
   }
 
   &__items {
@@ -147,13 +153,23 @@ body {
       font-size: 18px;
     }
 
+    img {
+      width: 20px;
+      height: 20px;
+      opacity: 0.4;
+    }
+
     span,
     svg,
-    path {
+    path,
+    img {
       transition: all $duration ease-in-out;
     }
 
     &:hover {
+      img {
+        opacity: 0.7;
+      }
       svg {
         path {
           stroke: darken($color: #b6b6b6, $amount: 50);
@@ -312,14 +328,19 @@ body {
           span {
             color: $gray-line;
           }
+
+          img {
+            opacity: 1;
+            filter: brightness(0) invert(1);
+          }
         }
 
-        svg {
+        img {
           margin-right: 12px;
-          path {
-            fill: transparent;
-            stroke-width: 2;
-          }
+          width: 25px;
+          height: 26px;
+          opacity: 0.3;
+          transition: all $duration ease-in-out;
         }
       }
 

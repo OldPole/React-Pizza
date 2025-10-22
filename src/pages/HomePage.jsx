@@ -5,7 +5,7 @@ import PizzaBlock from '@components/PizzaBlock';
 import Skeleton from '@components/PizzaBlock/Skeleton';
 import Categories from '@components/Categories';
 import Sort from '@components/Sort';
-import { setActiveCategory, setSortType } from '@redux/slices/filterSlice';
+import { setActiveCategory } from '@redux/slices/filterSlice';
 import { getDataApi } from '@utils/getDataApi';
 
 const HomePage = ({ searchValue }) => {
@@ -48,7 +48,7 @@ const HomePage = ({ searchValue }) => {
           activeCategory={activeCategory}
           onChangeCategory={(index) => dispatch(setActiveCategory(index))}
         />
-        <Sort sortType={sortType} setSortType={setSortType} />
+        <Sort />
       </div>
       <h2 className="content__title">Все пиццы</h2>
       <div className="content__items">{pizzas.length ? pizzaList : skeletonList}</div>

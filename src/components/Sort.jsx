@@ -1,19 +1,23 @@
 import { useState } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { setSortType } from '@redux/slices/filterSlice';
 
 import sortUp from '@assets/img/sort-up.png';
 
-const Sort = ({ sortType, setSortType }) => {
+const types = [
+  { title: 'популярности (убыв.)', type: '-rating' },
+  { title: 'популярности (возр.)', type: 'rating' },
+  { title: 'цене (убыв.)', type: '-price' },
+  { title: 'цене (возр.)', type: 'price' },
+  { title: 'алфавиту (убыв.)', type: '-title' },
+  { title: 'алфавиту (возр.)', type: 'title' },
+];
+
+const Sort = () => {
+  const sortType = useSelector((state) => state.filter.sortType);
   const dispatch = useDispatch();
+
   const [open, setOpen] = useState(false);
-  const types = [
-    { title: 'популярности (убыв.)', type: '-rating' },
-    { title: 'популярности (возр.)', type: 'rating' },
-    { title: 'цене (убыв.)', type: '-price' },
-    { title: 'цене (возр.)', type: 'price' },
-    { title: 'алфавиту (убыв.)', type: '-title' },
-    { title: 'алфавиту (возр.)', type: 'title' },
-  ];
 
   const handleSortType = (type) => {
     dispatch(setSortType(type));

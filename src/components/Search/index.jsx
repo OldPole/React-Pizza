@@ -1,4 +1,5 @@
 import { useCallback, useContext, useRef, useState } from 'react';
+import qs from 'qs';
 import debounce from 'lodash.debounce';
 
 import { SearchContext } from '@src/App';
@@ -39,6 +40,7 @@ const Search = () => {
         value={value}
         placeholder="Поиск пиццы..."
         className={styles.input}
+        ddd
         onChange={(event) => onChangeInput(event.target.value)}
       />
 

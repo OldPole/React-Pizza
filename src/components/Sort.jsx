@@ -4,7 +4,7 @@ import { setSortType } from '@redux/slices/filterSlice';
 
 import sortUp from '@assets/img/sort-up.png';
 
-const types = [
+export const types = [
   { title: 'популярности (убыв.)', type: '-rating' },
   { title: 'популярности (возр.)', type: 'rating' },
   { title: 'цене (убыв.)', type: '-price' },

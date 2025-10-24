@@ -1,17 +1,21 @@
 import { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import qs from 'qs';
 
 import PizzaBlock from '@components/PizzaBlock';
 import Skeleton from '@components/PizzaBlock/Skeleton';
 import Categories from '@components/Categories';
 import Sort from '@components/Sort';
-import { setActiveCategory } from '@redux/slices/filterSlice';
+import { setActiveCategory, setFilters } from '@redux/slices/filterSlice';
 import { getDataApi } from '@utils/getDataApi';
+import { types } from '@components/Sort';
 
 const HomePage = ({ searchValue }) => {
   const activeCategory = useSelector((state) => state.filter.categoryIndex);
   const sortType = useSelector((state) => state.filter.sortType);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [pizzas, setPizzas] = useState([]);
 
   const getResources = async (url) => {
@@ -23,6 +27,29 @@ const HomePage = ({ searchValue }) => {
       // Error
     }
   };
+
+  useEffect(() => {
+    if (window.location.search) {
+      const params = qs.parse(window.location.search.substring(1));
+      const sort = types.find((obj) => obj.type === params.type);
+
+      dispatch(
+        setFilters({
+          ...params,
+          sort,
+        }),
+      );
+    }
+  }, []);
+
+  useEffect(() => {
+    const queryString = qs.stringify({
+      type: sortType.type,
+      activeCategory,
+    });
+
+    navigate(`?${queryString}`);
+  }, [activeCategory, sortType.type, searchValue]);
 
   useEffect(() => {
     const category = activeCategory > 0 ? `category=${activeCategory}` : '';
